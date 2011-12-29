@@ -26,6 +26,9 @@ trait Elem extends Node {
     }
   }
 }
+final case class Element(name: String,
+                         override val attributes: Map[String, String],
+                         override val children: List[Node]) extends Elem
 trait Text extends Node {
   val text: String
   def asString: String = text
@@ -36,3 +39,4 @@ trait Text extends Node {
     }
   }
 }
+final case class TextNode(text: String) extends Text

@@ -33,6 +33,23 @@ object NodeSpecs extends Specification {
       }
       Element.asString must_== "<elem><child0></child0><child1></child1></elem>"
     }
+    "serialize mixed-type child nodes" in {
+      object Element extends Elem {
+        val name = "elem"
+        object Child0 extends Elem {
+          val name = "child0"
+          object Child01 extends Text {
+            val text = "text01"
+          }
+          override val children = List(Child01)
+        }
+        object Child1 extends Text {
+          val text = "text1"
+        }
+        override val children = List(Child0, Child1)
+      }
+      Element.asString must_== "<elem><child0>text01</child0>text1</elem>"
+    }
     "have a functional copy constructor" in {
       object Element extends Elem {
         val name = "elem"
